@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 
 import {Product} from '../../../interfaces/product.interface';
@@ -19,7 +18,6 @@ export class ProductFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
     private productService: ProductService
   ) {
     this.productForm = this.fb.group({

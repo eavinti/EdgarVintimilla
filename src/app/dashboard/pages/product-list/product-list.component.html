@@ -18,80 +18,26 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>
-          <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-500">
-            <span class="text-white">TW</span>
-          </span>
-        </td>
-        <td>Nombre del producto</td>
-        <td class="hide-s-column">Descripción</td>
-        <td class="hide-s-column">01/01/2000</td>
-        <td class="hide-s-column">01/01/2001</td>
-        <td>
-          <svg class="h-4 w-4 text-center text-gray-200" xmlns="http://www.w3.org/2000/svg"
-               viewBox="0 0 128 512">
-            <path
-              d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/>
-          </svg>
-        </td>
-      </tr>
-      <tr>
-        <td>Logo</td>
-        <td>Nombre del producto</td>
-        <td class="hide-s-column">Descripción</td>
-        <td class="hide-s-column">01/01/2000</td>
-        <td class="hide-s-column">01/01/2001</td>
-        <td>
-          <svg class="h-4 w-4 text-center text-gray-200" xmlns="http://www.w3.org/2000/svg"
-               viewBox="0 0 128 512">
-            <path
-              d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/>
-          </svg>
-        </td>
-      </tr>
-      <tr>
-        <td>Logo</td>
-        <td>Nombre del producto</td>
-        <td class="hide-s-column">Descripción</td>
-        <td class="hide-s-column">01/01/2000</td>
-        <td class="hide-s-column">01/01/2001</td>
-        <td>
-          <svg class="h-4 w-4 text-center text-gray-200" xmlns="http://www.w3.org/2000/svg"
-               viewBox="0 0 128 512">
-            <path
-              d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/>
-          </svg>
-        </td>
-      </tr>
-      <tr>
-        <td>Logo</td>
-        <td>Nombre del producto</td>
-        <td class="hide-s-column">Descripción</td>
-        <td class="hide-s-column">01/01/2000</td>
-        <td class="hide-s-column">01/01/2001</td>
-        <td>
-          <svg class="h-4 w-4 text-center text-gray-200" xmlns="http://www.w3.org/2000/svg"
-               viewBox="0 0 128 512">
-            <path
-              d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/>
-          </svg>
-        </td>
-      </tr>
-      <tr>
-        <td>Logo</td>
-        <td>Nombre del producto</td>
-        <td class="hide-s-column">Descripción</td>
-        <td class="hide-s-column">01/01/2000</td>
-        <td class="hide-s-column">01/01/2001</td>
-        <td>
-          <svg class="h-4 w-4 text-center text-gray-200" xmlns="http://www.w3.org/2000/svg"
-               viewBox="0 0 128 512">
-            <path
-              d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/>
-          </svg>
-        </td>
-      </tr>
+        @for (product of products; track product) {
+          <tr>
+            <td>
+              <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-500">
+                <img [src]="product.logo" [alt]="product.name" class="h-8 w-8 rounded-full">
+              </span>
+            </td>
+            <td>{{ product.name }}</td>
+            <td class="hide-s-column">{{ product.description }}</td>
+            <td class="hide-s-column">{{ product.date_release }}</td>
+            <td class="hide-s-column">{{ product.date_revision }}</td>
+            <td>
+              <svg class="h-4 w-4 text-center text-gray-200" xmlns="http://www.w3.org/2000/svg"
+                   viewBox="0 0 128 512">
+                <path
+                  d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/>
+              </svg>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
     <div class="footer-table">
