@@ -46,6 +46,10 @@ form{
   width: 100%;
 }
 
+.form-group input:disabled {
+  background-color: var(--color-gray-200);
+}
+
 .form-group .error {
   color: #850b0b;
   font-size: 12px;
@@ -73,8 +77,13 @@ form{
 }
 
 .form-actions .submit-button {
-  background-color: #FFCC00;
+  background-color: var(--color-yellow-300);
   color: white;
+}
+
+.form-actions .submit-button:disabled {
+  background-color: var(--color-yellow-100);
+  cursor: not-allowed;
 }
 
 

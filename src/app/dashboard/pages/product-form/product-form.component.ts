@@ -15,31 +15,79 @@ import { ProductService } from '../../../services/product.service';
 export class ProductFormComponent {
 
   productForm: FormGroup;
+  successMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private productService: ProductService
   ) {
     this.productForm = this.fb.group({
-      id: ['', Validators.required],
-      name: ['', Validators.required],
-      description: ['', Validators.required],
+      id: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
+      name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
       logo: ['', Validators.required],
-      date_release: ['', Validators.required],
-      date_revision: [{value: '', disabled: false}, Validators.required]
+      date_release: ['', [Validators.required, this.dateValidator()]],
+      date_revision: [{value: '', disabled: true}, [Validators.required, this.dateRevisionValidator()]]
+    });
+
+    this.productForm.get('date_release')?.valueChanges.subscribe(value => {
+      const releaseControl = this.productForm.get('date_release');
+      const revisionControl = this.productForm.get('date_revision');
+
+      if (releaseControl?.valid) {
+        revisionControl?.enable();
+        const releaseDate = new Date(value);
+        const revisionDate = new Date(releaseDate);
+        revisionDate.setFullYear(revisionDate.getFullYear() + 1);
+        revisionControl?.setValue(revisionDate.toISOString().split('T')[0], { emitEvent: false });
+      } else {
+        revisionControl?.disable();
+        revisionControl?.reset();
+      }
     });
   }
 
   onSubmit() {
+    console.log(this.productForm);
     if (this.productForm.valid) {
       const product: Product = this.productForm.getRawValue();
       this.productService.createProduct(product).subscribe({
-        next: response => console.log('Producto creado con éxito', response),
+        next: response => {
+          console.log('Producto creado con éxito', response)
+          this.successMessage = 'Producto creado con éxito';
+          this.resetForm();
+        },
         error: error => console.error('Error al crear el producto', error)
       });
     } else {
       console.log('Formulario no válido');
     }
+  }
+
+
+  resetForm() {
+    this.productForm.reset();
+    this.productForm.get('date_revision')?.disable();
+  }
+
+  dateValidator() {
+    return (control: { value: string | number | Date; }) => {
+      const date = new Date(control.value);
+      const today = new Date();
+      const yesterday = new Date(today);
+      yesterday.setDate(today.getDate() - 1);
+      return date >= yesterday ? null : { invalidDate: true };
+    };
+  }
+
+  dateRevisionValidator() {
+    return (control: { value: string | number | Date; }) => {
+      const revisionDate = new Date(control.value);
+      const releaseDate = new Date(this.productForm?.get('date_release')?.value);
+      const expectedRevisionDate = new Date(releaseDate);
+      expectedRevisionDate.setFullYear(expectedRevisionDate.getFullYear() + 1);
+      return revisionDate.toDateString() === expectedRevisionDate.toDateString() ? null : { invalidRevisionDate: true };
+    };
   }
 
 }
