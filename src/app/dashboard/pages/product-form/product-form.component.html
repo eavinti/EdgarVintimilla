@@ -1,0 +1,40 @@
+<div class="container">
+  <h2>Formulario de Registro</h2>
+
+  <hr class="solid">
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="id">ID</label>
+        <input type="text" id="id" name="id" class="full-width" formControlName="id">
+      </div>
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" name="name" class="full-width" formControlName="name">
+      </div>
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <input type="text" id="description" name="description" class="full-width" formControlName="description">
+        <span class="error">Este campo es requerido</span>
+      </div>
+      <div class="form-group">
+        <label for="logo">Logo</label>
+        <input type="text" id="logo" name="logo" class="full-width" formControlName="logo">
+        <span class="error">Este campo es requerido</span>
+      </div>
+      <div class="form-group">
+        <label for="release_date">Fecha de Liberación</label>
+        <input type="date" id="release_date" name="release_date" class="full-width" formControlName="date_release">
+      </div>
+      <div class="form-group">
+        <label for="revision_date">Fecha Revisión</label>
+        <input type="date" id="revision_date" name="revision_date" class="full-width" formControlName="date_revision">
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="reset" class="reset-button">Reiniciar</button>
+      <button type="submit" class="submit-button">Enviar</button>
+    </div>
+  </form>
+</div>

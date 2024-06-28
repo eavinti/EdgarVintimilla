@@ -1,0 +1,24 @@
+.menu {
+  background-color: white;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+.menu svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 8px;
+  fill: var(--color-blue);;
+}
+
+.content {
+  padding: 1.5rem;
+}
