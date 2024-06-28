@@ -19,6 +19,12 @@ export class ProductService {
     );
   }
 
+  verifyProductId(id: string): Observable<boolean> {
+    return this.http.get(`${this.apiUrl}/verification/${id}`, { responseType: 'text' }).pipe(
+      map(response => response === 'true')
+    );
+  }
+
   createProduct(product: Product): Observable<any> {
     return this.http.post<any>(this.apiUrl, product);
   }

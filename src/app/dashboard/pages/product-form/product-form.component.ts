@@ -1,5 +1,11 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {
+  FormBuilder, FormGroup, ReactiveFormsModule, Validators,
+  AsyncValidatorFn, AbstractControl, ValidationErrors
+} from '@angular/forms';
+
+import { map, catchError, debounceTime, switchMap, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 import {Product} from '../../../interfaces/product.interface';
 import { ProductService } from '../../../services/product.service';
@@ -22,7 +28,7 @@ export class ProductFormComponent {
     private productService: ProductService
   ) {
     this.productForm = this.fb.group({
-      id: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
+      id: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)], [this.idValidator()]],
       name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
       logo: ['', Validators.required],
@@ -90,4 +96,23 @@ export class ProductFormComponent {
     };
   }
 
+  idValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      if (!control.value) {
+        return of(null);
+      }
+      return this.productService.verifyProductId(control.value).pipe(
+        debounceTime(300),
+        switchMap(exists => {
+          if (exists) {
+            control.setErrors({ idExists: true });
+          } else {
+            control.setErrors(null);
+          }
+          return of(exists ? { idExists: true } : null);
+        }),
+        catchError(() => of(null))
+      );
+    };
+  }
 }
