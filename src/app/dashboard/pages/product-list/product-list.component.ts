@@ -13,6 +13,7 @@ import { ProductService } from '../../../services/product.service';
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
+  contextMenuVisible: boolean[] = [];
 
   constructor(private productService: ProductService) {}
 
@@ -24,9 +25,25 @@ export class ProductListComponent implements OnInit {
     this.productService.getProducts().subscribe({
       next: (data) => {
         this.products = data;
+        this.contextMenuVisible = new Array(this.products.length).fill(false);
       },
       error: (error) => console.error('Error al obtener los productos', error)
     });
+  }
+
+  toggleContextMenu(index: number): void {
+    console.log(index);
+
+    this.contextMenuVisible = this.contextMenuVisible.map((visible, i) => (i === index ? !visible : false));
+    console.log(this.contextMenuVisible);
+  }
+
+  editProduct(product: Product): void {
+    console.log('Edit product', product);
+  }
+
+  deleteProduct(product: Product): void {
+    console.log('Delete product', product);
   }
 
 }

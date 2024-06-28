@@ -4,7 +4,7 @@ import {
   AsyncValidatorFn, AbstractControl, ValidationErrors
 } from '@angular/forms';
 
-import { map, catchError, debounceTime, switchMap, tap } from 'rxjs/operators';
+import { catchError, debounceTime, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 import {Product} from '../../../interfaces/product.interface';

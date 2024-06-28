@@ -18,7 +18,7 @@
       </tr>
       </thead>
       <tbody>
-        @for (product of products; track product) {
+        @for (product of products; track product; let index = $index) {
           <tr>
             <td>
               <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-500">
@@ -30,11 +30,21 @@
             <td class="hide-s-column">{{ product.date_release }}</td>
             <td class="hide-s-column">{{ product.date_revision }}</td>
             <td>
-              <svg class="h-4 w-4 text-center text-gray-200" xmlns="http://www.w3.org/2000/svg"
+              <svg class="options h-4 w-4 text-center text-gray-200"
+                   (click)="toggleContextMenu(index)"
+                   xmlns="http://www.w3.org/2000/svg"
                    viewBox="0 0 128 512">
                 <path
                   d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/>
               </svg>
+              @if (contextMenuVisible[index]) {
+                <div class="context-menu">
+                  <ul class="menu-options">
+                    <li class="menu-option" (click)="editProduct(product)">Editar</li>
+                    <li class="menu-option" (click)="deleteProduct(product)">Borrar</li>
+                  </ul>
+                </div>
+              }
             </td>
           </tr>
         }
@@ -43,10 +53,10 @@
     <div class="footer-table">
       <span>5 Resultados</span>
       <select>
-        <option value="5">5</option>
+        <option value="5" selected>5</option>
         <option value="10">10</option>
-        <option value="25">25</option>
-        <option value="50">50</option>
+        <option value="25">20</option>
+        <option value="">Todo</option>
       </select>
     </div>
   </div>
