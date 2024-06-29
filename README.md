@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.6.
 
+## instalar dependencias
+
+Ejecuta `npm install` 
+
 ## Servidor de desarrollo
 
 Ejecuta `ng serve` para un servidor de desarrollo. ir a `http://localhost:4200/`.
