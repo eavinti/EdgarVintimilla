@@ -46,12 +46,16 @@ form{
   width: 100%;
 }
 
+.form-group input.error {
+  border-color: var(--color-red);
+}
+
 .form-group input:disabled {
   background-color: var(--color-gray-200);
 }
 
 .form-group .error {
-  color: #850b0b;
+  color: var(--color-red);
   font-size: 12px;
 }
 

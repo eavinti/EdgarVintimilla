@@ -13,7 +13,11 @@
     <div class="form-grid">
       <div class="form-group">
         <label for="id">ID</label>
-        <input type="text" id="id" name="id" class="full-width" formControlName="id" [disabled]="isEditMode">
+        <input type="text"
+               id="id" name="id"
+               class="full-width"
+               [ngClass]="{'error': productForm.get('id')?.touched && productForm.get('id')?.invalid}"
+               formControlName="id" [disabled]="isEditMode">
         @if (productForm.get('id')?.touched && productForm.get('id')?.invalid) {
           <div class="error">
             @if (productForm.get('id')?.errors?.['required']) {
@@ -33,7 +37,12 @@
       </div>
       <div class="form-group">
         <label for="name">Nombre</label>
-        <input type="text" id="name" name="name" class="full-width" formControlName="name">
+        <input type="text"
+               id="name"
+               name="name"
+               class="full-width"
+               [ngClass]="{'error': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+               formControlName="name">
         @if (productForm.get('name')?.touched && productForm.get('name')?.invalid) {
           <div class="error">
             @if (productForm.get('name')?.errors?.['required']) {
@@ -52,7 +61,12 @@
       </div>
       <div class="form-group">
         <label for="description">Descripción</label>
-        <input type="text" id="description" name="description" class="full-width" formControlName="description">
+        <input type="text"
+               id="description"
+               name="description"
+               class="full-width"
+               [ngClass]="{'error': productForm.get('description')?.touched && productForm.get('description')?.invalid}"
+               formControlName="description">
         @if (productForm.get('description')?.touched && productForm.get('description')?.invalid) {
           <div class="error">
             @if (productForm.get('description')?.errors?.['required']) {
@@ -69,7 +83,11 @@
       </div>
       <div class="form-group">
         <label for="logo">Logo</label>
-        <input type="text" id="logo" name="logo" class="full-width" formControlName="logo">
+        <input type="text"
+               id="logo"
+               name="logo"
+               class="full-width" [ngClass]="{'error': productForm.get('logo')?.touched && productForm.get('logo')?.invalid}"
+               formControlName="logo">
         @if (productForm.get('logo')?.touched && productForm.get('logo')?.invalid) {
           <div class="error">
             @if (productForm.get('logo')?.errors?.['required']) {
@@ -80,7 +98,11 @@
       </div>
       <div class="form-group">
         <label for="release_date">Fecha de Liberación</label>
-        <input type="date" id="release_date" name="release_date" class="full-width" formControlName="date_release">
+        <input type="date"
+               id="release_date"
+               name="release_date"
+               class="full-width" [ngClass]="{'error': productForm.get('date_release')?.touched && productForm.get('date_release')?.invalid}"
+               formControlName="date_release">
         @if (productForm.get('date_release')?.touched && productForm.get('date_release')?.invalid) {
           <div class="error">
             @if (productForm.get('date_release')?.errors?.['required']) {
@@ -98,6 +120,7 @@
                id="revision_date"
                name="revision_date"
                class="full-width"
+               [ngClass]="{'error': productForm.get('date_revision')?.touched && productForm.get('date_revision')?.invalid}"
                formControlName="date_revision"
                [disabled]="productForm.get('date_release')?.invalid ?? true">
         @if (productForm.get('date_revision')?.touched && productForm.get('date_revision')?.invalid) {
