@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import { RouterModule } from '@angular/router';
 import {
   FormBuilder, FormGroup, ReactiveFormsModule, Validators,
   AsyncValidatorFn, AbstractControl, ValidationErrors
@@ -14,7 +15,7 @@ import { ProductService } from '../../../services/product.service';
 @Component({
   selector: 'app-product-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterModule],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.css',
 })

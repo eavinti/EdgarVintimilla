@@ -116,6 +116,23 @@ hr.solid {
 }
 
 /* WIDGETS */
+.button {
+  background-color: var(--color-yellow-200);
+  color: var(--color-blue);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.secondary-button{
+  padding: 10px 20px;
+  cursor: pointer;
+  color: var(--color-blue);
+  text-decoration: none;
+}
+
 .help-icon {
   display: inline-block;
   width: 16px;

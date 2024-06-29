@@ -78,7 +78,7 @@ form{
 
 .form-actions .submit-button {
   background-color: var(--color-yellow-300);
-  color: white;
+  color: var(--color-blue);
 }
 
 .form-actions .submit-button:disabled {

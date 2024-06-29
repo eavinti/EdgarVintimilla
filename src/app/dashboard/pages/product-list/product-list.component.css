@@ -11,15 +11,6 @@
   border-radius: 4px;
 }
 
-.header button {
-  background-color: var(--color-yellow-200);
-  color: var(--color-blue);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
 .table-content {
   padding: 20px;
   background-color: white;

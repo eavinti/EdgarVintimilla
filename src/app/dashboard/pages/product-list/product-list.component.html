@@ -1,7 +1,7 @@
 <div class="container">
   <div class="header">
-    <input type="search" placeholder="Search...">
-    <button class="font-bold">Agregar</button>
+    <input type="search" placeholder="Buscar..." [formControl]="searchControl">
+    <a class="button" [routerLink]="['/dashboard/form']">Agregar</a>
   </div>
   <div class="table-content">
     <table>
@@ -18,11 +18,15 @@
       </tr>
       </thead>
       <tbody>
-        @for (product of products; track product; let index = $index) {
+        @for (product of displayedProducts; track product; let index = $index) {
           <tr>
             <td>
-              <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-500">
-                <img [src]="product.logo" [alt]="product.name" class="h-8 w-8 rounded-full">
+              <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
+                @if (isValidUrl(product.logo)) {
+                  <img [src]="product.logo" [alt]="product.name" class="h-8 w-8 rounded-full">
+                }@else{
+                 L
+                }
               </span>
             </td>
             <td>{{ product.name }}</td>
@@ -51,11 +55,11 @@
       </tbody>
     </table>
     <div class="footer-table">
-      <span>5 Resultados</span>
-      <select>
+      <span>{{ displayedProducts.length }} resultados de {{ totalProducts }}</span>
+      <select [formControl]="resultsPerPageControl">
         <option value="5" selected>5</option>
         <option value="10">10</option>
-        <option value="25">20</option>
+        <option value="20">20</option>
         <option value="">Todo</option>
       </select>
     </div>

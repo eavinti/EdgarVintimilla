@@ -113,6 +113,7 @@
       </div>
     </div>
     <div class="form-actions">
+      <a class="secondary-button" [routerLink]="['/dashboard/list']" (click)="resetForm()">Regresar</a>
       <button type="reset" class="reset-button" (click)="resetForm()">Reiniciar</button>
       <button type="submit" class="submit-button" [disabled]="productForm.invalid">Enviar</button>
     </div>
