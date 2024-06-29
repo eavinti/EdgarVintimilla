@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {debounceTime} from 'rxjs/operators';
 
@@ -21,12 +21,15 @@ export class ProductListComponent implements OnInit {
   resultsPerPageControl: FormControl = new FormControl('5');
   totalProducts: number = 0;
 
+  isModalVisible: boolean = false;
+  selectedProduct: Product | null = null;
+
   contextMenuVisible: boolean[] = [];
 
   constructor(
     private productService: ProductService,
     private router: Router,
-    ) {
+  ) {
   }
 
   ngOnInit(): void {
@@ -86,8 +89,29 @@ export class ProductListComponent implements OnInit {
     this.router.navigate(['/dashboard/form', product.id]);
   }
 
-  deleteProduct(product: Product): void {
-    console.log('Delete product', product);
+  deleteProduct(): void {
+    if (this.selectedProduct) {
+      this.productService.deleteProduct(this.selectedProduct.id).subscribe({
+        next: () => {
+          this.loadProducts(); // Recargar la lista de productos después de eliminar
+          this.isModalVisible = false;
+          this.selectedProduct = null;
+          console.log('Producto eliminado con éxito');
+        },
+        error: (error) => console.error('Error al eliminar el producto', error)
+      });
+    }
   }
+
+  confirmDeleteProduct(product: Product): void {
+    this.selectedProduct = product;
+    this.isModalVisible = true;
+  }
+
+  cancelDelete(): void {
+    this.isModalVisible = false;
+    this.selectedProduct = null;
+  }
+
 
 }
