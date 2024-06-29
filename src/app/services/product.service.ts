@@ -31,11 +31,8 @@ export class ProductService {
   }
 
   getProductById(id: string): Observable<Product> {
-    return this.http.get<{ data: Product }>(`${this.apiUrl}/${id}`).pipe(
-      map(response => response.data)
-    );
+    return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }
-
   updateProduct(id: string, product: Product): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, product);
   }

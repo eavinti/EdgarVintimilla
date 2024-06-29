@@ -13,7 +13,7 @@
     <div class="form-grid">
       <div class="form-group">
         <label for="id">ID</label>
-        <input type="text" id="id" name="id" class="full-width" formControlName="id">
+        <input type="text" id="id" name="id" class="full-width" formControlName="id" [disabled]="isEditMode">
         @if (productForm.get('id')?.touched && productForm.get('id')?.invalid) {
           <div class="error">
             @if (productForm.get('id')?.errors?.['required']) {
@@ -114,7 +114,9 @@
     </div>
     <div class="form-actions">
       <a class="secondary-button" [routerLink]="['/dashboard/list']" (click)="resetForm()">Regresar</a>
-      <button type="reset" class="reset-button" (click)="resetForm()">Reiniciar</button>
+      @if (!isEditMode) {
+        <button type="reset" class="reset-button" (click)="resetForm()">Reiniciar</button>
+      }
       <button type="submit" class="submit-button" [disabled]="productForm.invalid">Enviar</button>
     </div>
   </form>

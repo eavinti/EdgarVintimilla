@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import {
   FormBuilder, FormGroup, ReactiveFormsModule, Validators,
   AsyncValidatorFn, AbstractControl, ValidationErrors
@@ -19,14 +19,17 @@ import { ProductService } from '../../../services/product.service';
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.css',
 })
-export class ProductFormComponent {
+export class ProductFormComponent implements OnInit {
 
   productForm: FormGroup;
   successMessage: string | null = null;
+  productId: string | null = null;
+  isEditMode: boolean = false;
 
   constructor(
     private fb: FormBuilder,
-    private productService: ProductService
+    private productService: ProductService,
+    private route: ActivatedRoute
   ) {
     this.productForm = this.fb.group({
       id: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)], [this.idValidator()]],
@@ -54,18 +57,43 @@ export class ProductFormComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.productId = this.route.snapshot.paramMap.get('id');
+    this.isEditMode = !!this.productId;
+
+    if (this.isEditMode && this.productId) {
+      this.productService.getProductById(this.productId).subscribe({
+        next: (product) => {
+          this.productForm.patchValue(product);
+          this.productForm.get('id')?.disable();
+
+        },
+        error: (error) => console.error('Error al cargar el producto', error)
+      });
+    }
+  }
+
   onSubmit() {
-    console.log(this.productForm);
     if (this.productForm.valid) {
       const product: Product = this.productForm.getRawValue();
-      this.productService.createProduct(product).subscribe({
-        next: response => {
-          console.log('Producto creado con éxito', response)
-          this.successMessage = 'Producto creado con éxito';
-          this.resetForm();
-        },
-        error: error => console.error('Error al crear el producto', error)
-      });
+      if (this.isEditMode && this.productId) {
+        this.productService.updateProduct(this.productId, product).subscribe({
+          next: response => {
+            console.log('Producto actualizado con éxito', response);
+            this.successMessage = 'Producto actualizado con éxito';
+          },
+          error: error => console.error('Error al actualizar el producto', error)
+        });
+      } else {
+        this.productService.createProduct(product).subscribe({
+          next: response => {
+            console.log('Producto creado con éxito', response);
+            this.successMessage = 'Producto creado con éxito';
+            this.resetForm();
+          },
+          error: error => console.error('Error al crear el producto', error)
+        });
+      }
     } else {
       console.log('Formulario no válido');
     }
